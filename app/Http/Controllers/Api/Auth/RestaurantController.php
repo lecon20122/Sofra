@@ -13,7 +13,7 @@ use App\Http\Requests\restLogin;
 class RestaurantController extends Controller
 {
     function register(restRegister $request){
-        // try {
+        try {
             $record = Restaurant::create($request->all());
             $record->api_token = Str::random(60); //api_Token
             $record->categories()->attach($request->category_id);
@@ -22,10 +22,10 @@ class RestaurantController extends Controller
                 'api_token'=>$record->api_token,
                 'client' => $record
             ]);
-        // }//Try end
-        // catch (\Exception $e) {
-        //     return jsonResponse('0','Failed , Try Again');
-        // }//catch end
+        }//Try end
+        catch (\Exception $e) {
+            return jsonResponse('0','Failed , Try Again');
+        }//catch end
 
     }//register end
 
