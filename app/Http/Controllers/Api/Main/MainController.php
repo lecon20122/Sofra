@@ -1,13 +1,15 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers\Api\Main;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\SettingResourse;
 use App\Models\Category;
 use App\Models\City;
+use App\Models\ContactUs;
 use App\Models\District;
 use App\Models\Offer;
+use App\Models\Product;
 use App\Models\Restaurant;
 use App\Models\Setting;
 use Illuminate\Http\Request;
@@ -61,11 +63,12 @@ class MainController extends Controller
         }
     }//end Offers
 
+
     //settings
     public function settings()
     {
         try {
-            $record = Setting::all(['id','key' , 'value']);
+            $record = Setting::all(['id','key','value']);
             return jsonResponse('1' , 'Success' , $record);
         }catch (\Exception $exception){
             return jsonResponse('0' , 'Failed');
@@ -86,7 +89,16 @@ class MainController extends Controller
 
 
 
-
+    //Contact_us [ adding messege from users or restaurant]
+    public function contactUs(Request $request)
+    {
+        try {
+            $record = ContactUs::create($request->all());
+            return jsonResponse('1' , 'Success' , $record);
+        }catch (\Exception $exception){
+            return jsonResponse('0' , 'Failed' , 'Nothing');
+        }
+    }//end contactUs
 
 }//end Controller
 

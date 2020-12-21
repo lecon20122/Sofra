@@ -19,7 +19,7 @@ class Restaurant extends Authenticatable
     use SoftDeletes, Notifiable;
 
     protected $dates = ['deleted_at'];
-    protected $fillable = array('name', 'email', 'phone', 'password', 'image', 'is_active', 'district_id', 'category_id', 'min_order', 'delivery_fees', 'contact_phone', 'contact_whatsapp');
+    protected $fillable = array('name', 'pin_code', 'email', 'phone', 'password', 'image', 'is_active', 'district_id', 'category_id', 'min_order', 'delivery_fees', 'contact_phone', 'contact_whatsapp');
 
     public function district()
     {

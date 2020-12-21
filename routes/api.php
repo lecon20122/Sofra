@@ -15,16 +15,13 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-
-Route::get('settings','App\Http\Controllers\Api\MainController@settings');
-
-Route::group(['prefix' => 'auth', ], function () {
-    Route::post('register','App\Http\Controllers\Api\Auth\RestaurantController@register');
-    Route::post('login','App\Http\Controllers\Api\Auth\RestaurantController@login');
-
-    // Route::group(['middleware' => 'auth:restaurant'], function () {
-
-    // });
-    
+// Main Controllers //
+Route::group(['namespace' => 'App\Http\Controllers\Api\Main'], function () {
+    Route::get('settings', 'MainController@settings');
+    Route::get('categories', 'MainController@categories');
+    Route::get('districts', 'MainController@districts');
+    Route::get('cities', 'MainController@districts');
+    Route::get('restaurants', 'MainController@restaurants');
+    Route::get('offers', 'MainController@offers');
+    Route::post('contact-us', 'MainController@contactUs');
 });
-

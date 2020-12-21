@@ -12,5 +12,5 @@ class ContactUs extends Model
     public $timestamps = false;
 
     protected $dates = ['deleted_at'];
-    protected $fillable = array('name', 'email' , 'phone' , 'msg');
+    protected $fillable = array('name', 'email' , 'phone' , 'msg','type');
 }
