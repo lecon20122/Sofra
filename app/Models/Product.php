@@ -12,10 +12,10 @@ class Product extends Model
     protected $table = 'products';
     public $timestamps = true;
 
-    use SoftDeletes , HasFactory;
+    use SoftDeletes, HasFactory;
 
     protected $dates = ['deleted_at'];
-    protected $fillable = array('name', 'short_describtion', 'image', 'price', 'offer', 'ready_in' , 'restaurant_id');
+    protected $fillable = array('name', 'short_describtion', 'image', 'price', 'offer', 'ready_in', 'restaurant_id');
 
     public function restaurant()
     {
@@ -26,5 +26,4 @@ class Product extends Model
     {
         return $this->belongsToMany('App\Models\Order');
     }
-
 }

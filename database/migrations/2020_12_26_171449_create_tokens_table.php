@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddPinCodeToClients extends Migration
+class CreateTokensTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,11 @@ class AddPinCodeToClients extends Migration
      */
     public function up()
     {
-        Schema::table('clients', function (Blueprint $table) {
-            $table->integer('pin_code')->unsigned()->nullable();
+        Schema::create('tokens', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('token');
+            $table->enum('type' , ["android","ios"]);
+            $table->timestamps();
         });
     }
 
@@ -25,8 +28,6 @@ class AddPinCodeToClients extends Migration
      */
     public function down()
     {
-        Schema::table('clients', function (Blueprint $table) {
-            //
-        });
+        Schema::dropIfExists('tokens');
     }
 }

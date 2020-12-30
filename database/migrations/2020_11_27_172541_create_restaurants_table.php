@@ -21,7 +21,9 @@ class CreateRestaurantsTable extends Migration {
 			$table->decimal('min_order', 8,2);
 			$table->decimal('delivery_fees', 8,2);
 			$table->string('contact_phone');
-			$table->string('contact_whatsapp');
+            $table->string('contact_whatsapp');
+            $table->string('api_token', 60)->unique()->nullable();
+            $table->integer('pin_code')->unsigned()->nullable();
 			$table->timestamps();
 			$table->softDeletes();
 		});

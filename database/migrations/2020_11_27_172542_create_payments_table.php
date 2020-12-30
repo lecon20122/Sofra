@@ -13,11 +13,11 @@ class CreatePaymentsTable extends Migration {
 			$table->increments('id');
 			$table->decimal('restaurant_sales', 8,2);
 			$table->decimal('price', 8,2);
-			$table->decimal('reminder', 8,2);
+            $table->decimal('reminder', 8,2);
+            $table->text('notes');
 			$table->integer('restaurant_id')->unsigned();
 			$table->softDeletes();
 			$table->timestamps();
-			$table->text('notes');
 		});
 	}
 

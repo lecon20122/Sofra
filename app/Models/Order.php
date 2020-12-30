@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Order extends Model 
+class Order extends Model
 {
 
     protected $table = 'orders';
@@ -28,7 +28,8 @@ class Order extends Model
 
     public function products()
     {
-        return $this->belongsToMany('App\Models\Product');
+        return $this->belongsToMany('App\Models\Product')->withPivot('qty', 'price', 'notes');
     }
+
 
 }

@@ -11,7 +11,7 @@ use App\Http\Requests\restRegister;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\ResetPassword;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class AuthController extends Controller
 {
@@ -23,8 +23,10 @@ class AuthController extends Controller
         try {
             $record = Restaurant::create($request->all());
             $record->api_token = Str::random(60); //api_Token
-            $record->categories()->attach($request->category_id);
             $record->save();
+            if ($request->category_id) {
+                $record->categories()->attach($request->category_id);
+            }
             return jsonResponse('1', 'Client Added Successfully', [
                 'api_token' => $record->api_token,
                 'client' => $record
@@ -110,22 +112,36 @@ class AuthController extends Controller
 
     public function editProfile(Request $request)
     {
-        $client = auth('restaurant')->user();
-        $client->update($request->except('api_token','pin_code'));
+        try {
+            DB::beginTransaction();
+            $client = auth('restaurant')->user();
+            $client->update($request->except('api_token','pin_code'));
+            if ($request->category_id) {
+                $request->user()->categories()->sync($request->category_id);
+            }
+            DB::commit();
+            return jsonResponse('1', 'Profile updated successfully');
+        } catch (\Exception $th) {
+            DB::rollBack();
+            return jsonResponse('0', 'Something wrong Happend , try again latter');
+        }
+
     }
 
     //logout
     function logout(){
         try {
+            DB::beginTransaction();
             if (auth()->user()) {
                 $client = auth()->user();
                 $client->api_token = null;
                 $client->save();
+                DB::commit();
                 return jsonResponse('1','logout Succeed');
             }
         } catch (\Exception $th) {
+            DB::rollBack();
             return jsonResponse('0','logout Failed');
-
         }
 
         }

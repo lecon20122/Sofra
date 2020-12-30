@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Str;
 
 class Restaurant extends Authenticatable
 {
@@ -19,7 +18,7 @@ class Restaurant extends Authenticatable
     use SoftDeletes, Notifiable;
 
     protected $dates = ['deleted_at'];
-    protected $fillable = array('name', 'pin_code', 'email', 'phone', 'password', 'image', 'is_active', 'district_id', 'category_id', 'min_order', 'delivery_fees', 'contact_phone', 'contact_whatsapp');
+    protected $fillable = array('name',  'pin_code', 'email', 'phone', 'password', 'image', 'is_active', 'district_id', 'min_order', 'delivery_fees', 'contact_phone', 'contact_whatsapp');
 
     public function district()
     {
@@ -41,10 +40,6 @@ class Restaurant extends Authenticatable
         return $this->hasMany('App\Models\Order');
     }
 
-    public function notification()
-    {
-        return $this->morphMany('App\Models\Notification', 'notificationable');
-    }
 
     public function payments()
     {
@@ -60,6 +55,19 @@ class Restaurant extends Authenticatable
     {
         return $this->hasMany('App\Models\Review');
     }
+        ////////////MORPH///////////
+    /**
+     * Get all of the tags for the post.
+     */
+    public function tokens()
+    {
+        return $this->morphMany(Token::class, 'tokenable');
+    }
+    public function notification()
+    {
+        return $this->morphMany('App\Models\Notification', 'notificationable');
+    }
+        ////////////MORPH///////////
 
 
 
@@ -69,15 +77,5 @@ class Restaurant extends Authenticatable
 
         $this->attributes['password'] = Hash::make($pass);
     }
-    // //Mutator for the Api-tokken - Adding Api Token
-    // public function setApiTokenAttribute($pass){
 
-    //     $this->attributes['api_token'] = Str::random(60);
-
-    // }
-
-    public function getAuthPassword()
-    {
-        return $this->password;
-    }
 }

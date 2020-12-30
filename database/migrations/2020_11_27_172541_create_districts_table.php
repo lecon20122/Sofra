@@ -10,11 +10,11 @@ class CreateDistrictsTable extends Migration {
 	public function up()
 	{
 		Schema::create('districts', function(Blueprint $table) {
-			$table->increments('id');
+            $table->increments('id');
+            $table->string('name');
+			$table->integer('city_id')->unsigned();
 			$table->timestamps();
 			$table->softDeletes();
-			$table->string('name');
-			$table->integer('city_id')->unsigned();
 		});
 	}
 

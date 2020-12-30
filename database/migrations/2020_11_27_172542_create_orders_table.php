@@ -11,17 +11,17 @@ class CreateOrdersTable extends Migration {
 	{
 		Schema::create('orders', function(Blueprint $table) {
 			$table->increments('id');
-			$table->timestamps();
-			$table->softDeletes();
 			$table->integer('restaurant_id')->unsigned();
 			$table->integer('client_id')->unsigned();
-			$table->decimal('total', 8,2);
-			$table->decimal('price', 8,2);
-			$table->decimal('delivery_fees', 8,2);
-			$table->decimal('commission', 8,2);
+			$table->decimal('total', 8,2)->default(0);
+			$table->decimal('price', 8,2)->default(0);
+			$table->decimal('delivery_fees', 8,2)->default(0);
+			$table->decimal('commission', 8,2)->default(0);
 			$table->text('notes');
-			$table->enum('state', array('pending...', 'accepted', 'rejected', 'delivered'));
-			$table->enum('type', array('cash-on-delivery', 'online'));
+			$table->enum('state', array('pending...', 'accepted', 'rejected', 'delivered'))->default('pending');
+            $table->enum('type', array('cash-on-delivery', 'online'));
+            $table->timestamps();
+			$table->softDeletes();
 		});
 	}
 

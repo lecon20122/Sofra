@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
-| Restaurant Routes
+| Client Routes
 |--------------------------------------------------------------------------
 |
 | Here is where you can register API routes for your application. These
@@ -15,29 +15,15 @@ use Illuminate\Support\Facades\Route;
 */
 
 // Restaurant Auth
-Route::group(['prefix' => 'rs-auth', 'namespace' => 'App\Http\Controllers\Api\Restaurant'], function () {
+Route::group(['prefix' => 'cl-auth', 'namespace' => 'App\Http\Controllers\Api\Client'], function () {
     // not requiring -> auth
     Route::post('register', 'AuthController@register');
     Route::post('login', 'AuthController@login');
     Route::post('reset-password', 'AuthController@resetPassword');
     Route::post('new-password', 'AuthController@newPassword');
     //require -> auth
-    Route::group(['middleware' => 'auth:restaurant'], function () {
+    Route::group(['middleware' => 'auth:client'], function () {
         Route::post('logout', 'AuthController@logout');
         Route::post('profile', 'AuthController@editProfile');
     });
-});
-
-Route::group(['namespace' => 'App\Http\Controllers\Api\Restaurant' , 'middleware' => 'auth:restaurant'], function () {
-    Route::get('my-items','RestaurantController@myRestaurant');
-    Route::post('add-products','RestaurantController@addProduct');
-    Route::post('edit-products','RestaurantController@editProduct');
-    Route::post('delete-products','RestaurantController@deleteProduct');
-
-    Route::post('add-offer','OfferController@addOffer');
-    Route::get('my-offers','OfferController@myOffers');
-    Route::post('delete-offer','OfferController@deleteOffer');
-    Route::post('edit-offer','OfferController@editOffer');
-
-
 });

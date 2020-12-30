@@ -11,19 +11,17 @@ class CreateForeignKeys extends Migration {
 	public function up()
 	{
 		Schema::table('clients', function(Blueprint $table) {
-			$table->foreign('district_id')->references('id')->on('districts')
-						->onDelete('restrict')
-						->onUpdate('restrict');
+			$table->foreign('district_id')->references('id')->on('districts');
 		});
 		Schema::table('districts', function(Blueprint $table) {
 			$table->foreign('city_id')->references('id')->on('cities')
-						->onDelete('restrict')
-						->onUpdate('restrict');
+						->onDelete('cascade')
+						->onUpdate('cascade');
 		});
 		Schema::table('reviews', function(Blueprint $table) {
 			$table->foreign('client_id')->references('id')->on('clients')
-						->onDelete('restrict')
-						->onUpdate('restrict');
+						->onDelete('cascade')
+						->onUpdate('cascade');
 		});
 		Schema::table('categories', function(Blueprint $table) {
 			$table->foreign('parent_id')->references('id')->on('categories')

@@ -11,9 +11,9 @@ class CreateCategoryRestaurantTable extends Migration {
 	{
 		Schema::create('category_restaurant', function(Blueprint $table) {
 			$table->increments('id');
-			$table->timestamps();
 			$table->integer('category_id')->unsigned();
-			$table->integer('restaurant_id')->unsigned();
+            $table->integer('restaurant_id')->unsigned();
+            $table->timestamps();
 		});
 	}
 
