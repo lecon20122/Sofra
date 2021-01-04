@@ -63,7 +63,7 @@ class Restaurant extends Authenticatable
     {
         return $this->morphMany(Token::class, 'tokenable');
     }
-    public function notification()
+    public function notifications()
     {
         return $this->morphMany('App\Models\Notification', 'notificationable');
     }

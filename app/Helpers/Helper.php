@@ -36,9 +36,9 @@ function deleteImage($image)
 //         File::delete('uploads/posts_images/'.$record->image);
 //         $record->delete();
 
-function settings()
+function settings($key)
 {
-    $settings = \App\Models\Setting::find(1);
+    $settings = \App\Models\Setting::where('name' , $key)->first();
 
     if($settings){
         return $settings;

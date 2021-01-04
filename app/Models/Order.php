@@ -14,7 +14,7 @@ class Order extends Model
     use SoftDeletes;
 
     protected $dates = ['deleted_at'];
-    protected $fillable = array('client_id', 'total', 'price', 'delivery_fees', 'commission', 'notes');
+    protected $fillable = array('client_id','address', 'restaurant_id','payment_type_id', 'total', 'price', 'net', 'cost' ,  'delivery_fees', 'commission', 'notes', 'state');
 
     public function restaurant()
     {
@@ -23,13 +23,18 @@ class Order extends Model
 
     public function client()
     {
-        return $this->belongsTo('App\Models\Client');
+        return $this->belongsTo('App\Models\Client' , 'client_id');
     }
 
     public function products()
     {
         return $this->belongsToMany('App\Models\Product')->withPivot('qty', 'price', 'notes');
     }
+    public function payments_types()
+    {
+        return $this->hasMany(PaymentTypes::class);
+    }
+
 
 
 }

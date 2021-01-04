@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Notifications\Notifiable;
@@ -18,8 +17,6 @@ class Client extends Authenticatable
 
     protected $table = 'clients';
     public $timestamps = true;
-
-    use SoftDeletes;
 
     protected $dates = ['deleted_at'];
     protected $fillable = array('name', 'pin_code', 'email', 'password', 'phone', 'address', 'district_id');

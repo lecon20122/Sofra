@@ -17,6 +17,8 @@ class CreateTokensTable extends Migration
             $table->increments('id');
             $table->string('token');
             $table->enum('type' , ["android","ios"]);
+            $table->integer('tokenable_id')->unsigned();
+            $table->string('tokenable_type');
             $table->timestamps();
         });
     }

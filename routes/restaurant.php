@@ -34,10 +34,20 @@ Route::group(['namespace' => 'App\Http\Controllers\Api\Restaurant' , 'middleware
     Route::post('edit-products','RestaurantController@editProduct');
     Route::post('delete-products','RestaurantController@deleteProduct');
 
+    //Offers
     Route::post('add-offer','OfferController@addOffer');
     Route::get('my-offers','OfferController@myOffers');
     Route::post('delete-offer','OfferController@deleteOffer');
     Route::post('edit-offer','OfferController@editOffer');
+    // end Offers
 
-
+    //Orders
+    Route::get('new-orders','OrderController@newOrders');
+    Route::get('old-orders','OrderController@oldOrders');
+    Route::get('current-orders','OrderController@currentOrders');
+    Route::get('completed-orders','OrderController@completedOrders');
+    Route::post('accept-order','OrderController@acceptOrder');
+    Route::post('reject-order','OrderController@rejectOrder');
+    Route::post('complete-order','OrderController@completeOrder');
+    //end Orders
 });

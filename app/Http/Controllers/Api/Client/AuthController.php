@@ -40,7 +40,7 @@ class AuthController extends Controller
     public function login(Request $request)
     {
 
-        try {
+        // try {
             $client = Client::where('email', $request->email)->first();
             if ($client) {
                 $client->api_token = Str::random(60);
@@ -56,9 +56,9 @@ class AuthController extends Controller
             else {
                 return jsonResponse('0', 'Client Not Found');
             } //else end
-        } catch (\Exception $th) {
-            return jsonResponse('0', 'Something wrong happens try again later');
-        } //catch end
+        // } catch (\Exception $th) {
+        //     return jsonResponse('0', 'Something wrong happens try again later');
+        // } //catch end
 
     } //login end
 

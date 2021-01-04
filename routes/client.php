@@ -27,3 +27,10 @@ Route::group(['prefix' => 'cl-auth', 'namespace' => 'App\Http\Controllers\Api\Cl
         Route::post('profile', 'AuthController@editProfile');
     });
 });
+Route::group(['middleware' => 'auth:client' , 'prefix' => 'client' , 'namespace' => 'App\Http\Controllers\Api\Client'], function () {
+    Route::post('new-order', 'OrderController@newOrder');
+    Route::post('accept-order', 'OrderController@acceptOrder');
+    Route::post('reject-order', 'OrderController@rejectOrder');
+    Route::get('current-order', 'OrderController@currentOrders');
+    Route::get('old-order', 'OrderController@oldOrders');
+});

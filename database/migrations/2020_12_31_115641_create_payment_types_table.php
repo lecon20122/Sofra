@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTokenablesTable extends Migration
+class CreatePaymentTypesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,9 @@ class CreateTokenablesTable extends Migration
      */
     public function up()
     {
-        Schema::create('tokenables', function (Blueprint $table) {
+        Schema::create('payment_types', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('token_id')->unsigned();
-			$table->integer('tokenable_id')->unsigned();
-            $table->string('tokenable_type');
+            $table->string('name');
             $table->timestamps();
         });
     }
@@ -29,6 +27,6 @@ class CreateTokenablesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tokenables');
+        Schema::dropIfExists('payment_types');
     }
 }

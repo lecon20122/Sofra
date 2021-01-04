@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Offer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+
 class OfferController extends Controller
 {
     /**
@@ -19,13 +20,14 @@ class OfferController extends Controller
             DB::beginTransaction();
             $record = $request->user()->offers()->create($request->all());
             if ($request->hasFile('image')) {
-                $request->image = addImage($request); // addimage is in Helper
+                $record->image = addImage($request); // addimage is in Helper
+                $record->save();
             }
             DB::commit();
-            return jsonResponse('1','Offer added successfuly' , $record);
+            return jsonResponse('1', 'Offer added successfuly', $record);
         } catch (\Throwable $th) {
             DB::rollBack();
-            return jsonResponse('0','Process Failed');
+            return jsonResponse('0', 'Process Failed');
         }
     }
 
@@ -36,20 +38,22 @@ class OfferController extends Controller
      */
     public function editOffer(Request $request)
     {
-        try {
-            DB::beginTransaction();
-            $record = $request->user()->offers()->update($request->all());
-            if ($request->hasFile('image')) {
+        // try {
+        DB::beginTransaction();
+        $record = $request->user()->offers()->find($request->id)
+            ->update($request->all());
+        if ($request->hasFile('image')) {
                 deleteImage($record->image);
                 $record->delete($record->image);
-                $request->image = addImage($request);
+                $record->image = addImage($request);
+                $record->save();
             }
-            DB::commit();
-            return jsonResponse('1','Offer added successfuly' , $record);
-        } catch (\Throwable $th) {
-            DB::rollBack();
-            return jsonResponse('0','Process Failed');
-        }
+        DB::commit();
+        return jsonResponse('1', 'Offer added successfuly', $record);
+        // } catch (\Throwable $th) {
+        //     DB::rollBack();
+        //     return jsonResponse('0', 'Process Failed');
+        // }
     }
 
     /**

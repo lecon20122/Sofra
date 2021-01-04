@@ -27,7 +27,7 @@ class ProductFactory extends Factory
             'name' => $this->faker->name,
             'price' =>$this->faker->numberBetween($min = 10, $max = 150),
             'offer' =>$this->faker->randomDigit,
-            'restaurant_id' => 2 ,
+            'restaurant_id' => 3,
             'ready_in' => 60,
             'short_describtion' => $this->faker->sentence($nbWords = 6, $variableNbWords = true),
         ];

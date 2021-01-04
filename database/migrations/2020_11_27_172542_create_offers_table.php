@@ -13,7 +13,7 @@ class CreateOffersTable extends Migration {
 			$table->increments('id');
 			$table->string('name');
 			$table->text('short_describtion');
-			$table->string('image');
+			$table->string('image')->nullable();
 			$table->date('start_date');
 			$table->date('end_date');
             $table->integer('restaurant_id')->unsigned();

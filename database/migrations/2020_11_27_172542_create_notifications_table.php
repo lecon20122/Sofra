@@ -13,6 +13,8 @@ class CreateNotificationsTable extends Migration {
 			$table->increments('id');
 			$table->string('title');
             $table->text('content');
+            $table->integer('notificationable_id')->unsigned();
+            $table->string('notificationable_type');
             $table->timestamps();
 		});
 	}

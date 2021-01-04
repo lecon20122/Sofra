@@ -29,7 +29,6 @@ class AuthController extends Controller
             }
             return jsonResponse('1', 'Client Added Successfully', [
                 'api_token' => $record->api_token,
-                'client' => $record
             ]);
         } //Try end
         catch (\Exception $e) {

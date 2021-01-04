@@ -16,7 +16,7 @@ class CreateRestaurantsTable extends Migration {
 			$table->string('phone');
 			$table->string('password');
 			$table->string('image');
-			$table->boolean('is_active');
+			$table->boolean('is_active')->default(1);
 			$table->integer('district_id')->unsigned();
 			$table->decimal('min_order', 8,2);
 			$table->decimal('delivery_fees', 8,2);
